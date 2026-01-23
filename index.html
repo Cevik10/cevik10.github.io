@@ -2,60 +2,415 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Captain’s Log: Stardate – Support</title>
+  <title>Captain's Log: Stardate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Captain's Log: Stardate - Your personal Star Trek journey. Log entries, quizzes, memory games, and more!" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      max-width: 720px;
-      margin: 40px auto;
-      padding: 0 16px;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1629 100%);
+      color: #e0e7ff;
+      min-height: 100vh;
       line-height: 1.6;
-      color: #111827;
     }
-    h1 {
-      font-size: 28px;
+    
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    
+    .tagline {
+      font-size: 22px;
+      color: #94a3b8;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    
+    .download-badge {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 24px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 2px solid #6366f1;
+      border-radius: 12px;
+      color: #60a5fa;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .download-badge:hover {
+      background: rgba(99, 102, 241, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    
+    .section {
+      margin-bottom: 60px;
+      padding: 40px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 20px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 24px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #6366f1, #fbbf24);
+      border-radius: 2px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    
+    .feature-card {
+      padding: 24px;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      border-left: 4px solid #fbbf24;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2);
+    }
+    
+    .feature-icon {
+      font-size: 32px;
       margin-bottom: 12px;
     }
-    h2 {
-      margin-top: 24px;
+    
+    .feature-title {
       font-size: 20px;
+      font-weight: 600;
+      color: #60a5fa;
+      margin-bottom: 8px;
     }
-    a { text-decoration: none; color: #2563eb; }
+    
+    .feature-desc {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+    
+    .premium-section {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(251, 191, 36, 0.1) 100%);
+      border: 2px solid rgba(251, 191, 36, 0.3);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    
+    .premium-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #0a0e27;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    
+    .premium-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fbbf24;
+      margin-bottom: 16px;
+    }
+    
+    .premium-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+      text-align: left;
+    }
+    
+    .premium-feature {
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 10px;
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+    
+    .premium-feature::before {
+      content: "✓";
+      color: #fbbf24;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    
+    .cta-section {
+      text-align: center;
+      padding: 60px 40px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 20px;
+      border: 2px dashed rgba(99, 102, 241, 0.3);
+    }
+    
+    .cta-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 16px;
+    }
+    
+    .cta-text {
+      font-size: 18px;
+      color: #cbd5e1;
+      margin-bottom: 32px;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(99, 102, 241, 0.2);
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-link {
+      color: #60a5fa;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-link:hover {
+      color: #fbbf24;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @media (max-width: 640px) {
+      .logo {
+        font-size: 36px;
+      }
+      
+      .tagline {
+        font-size: 18px;
+      }
+      
+      .section {
+        padding: 24px;
+      }
+      
+      .section-title {
+        font-size: 26px;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Captain’s Log: Stardate – Support</h1>
-
-  <p>
-    This page provides support information for the <strong>Captain’s Log: Stardate</strong> mobile application.
-    If you have any questions, need assistance, or want to report an issue, you’re in the right place.
-  </p>
-
-  <h2>Contact</h2>
-  <p>
-    For technical issues, feature requests, feedback, account matters, or general inquiries, please contact:
-  </p>
-  <p>
-    <strong>Email:</strong>
-    <a href="mailto:hakanxcevik7@gmail.com">hakanxcevik7@gmail.com</a>
-  </p>
-
-  <h2>Account & Data</h2>
-  <p>
-    You may request data deletion, log removal, or account-related assistance via email.
-    Please contact us from the email address you used inside the app and include any relevant details.
-  </p>
-
-  <h2>Abuse & Safety</h2>
-  <p>
-    To report inappropriate content, bugs, or security concerns, email us with screenshots or descriptions.
-    All reports are reviewed according to our guidelines and applicable laws.
-  </p>
-
-  <h2>Legal</h2>
-  <p>
-    &copy; 2025 Captain’s Log: Stardate. All rights reserved.
-  </p>
+  <div class="hero">
+    <div class="logo floating">Captain's Log: Stardate</div>
+    <p class="tagline">Your Personal Star Trek Journey</p>
+    <p style="color: #cbd5e1; font-size: 18px; max-width: 600px; margin: 0 auto;">
+      Document your adventures, test your knowledge, and explore the final frontier 
+      with the ultimate Star Trek companion app.
+    </p>
+    <a href="#" class="download-badge">Download on the App Store</a>
+  </div>
+  
+  <div class="container">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <div class="feature-title">Captain's Log</div>
+          <div class="feature-desc">
+            Document your Star Trek journey with text, images, and audio recordings. 
+            Create detailed log entries of your adventures.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-title">Interactive Quizzes</div>
+          <div class="feature-desc">
+            Test your knowledge with challenging quizzes covering all Star Trek series, 
+            characters, and lore. Earn Dilithium crystals as you progress.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <div class="feature-title">Memory Games</div>
+          <div class="feature-desc">
+            Challenge your memory with Star Trek-themed card matching games. 
+            Multiple difficulty levels and categories to explore.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-title">Daily Missions</div>
+          <div class="feature-desc">
+            Complete daily missions to earn rewards and track your progress. 
+            New challenges await you every day.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <div class="feature-title">Badges & Achievements</div>
+          <div class="feature-desc">
+            Unlock badges and achievements as you explore the app. 
+            Show off your Star Trek expertise with exclusive ranks.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔊</div>
+          <div class="feature-title">Sound Board</div>
+          <div class="feature-desc">
+            Enjoy authentic Star Trek sound effects. Play iconic sounds 
+            from the series whenever you want.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Statistics Dashboard</div>
+          <div class="feature-desc">
+            Track your progress with detailed statistics. View your quiz scores, 
+            game performance, and activity charts.
+          </div>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <div class="feature-title">3D Models</div>
+          <div class="feature-desc">
+            Explore detailed 3D models of iconic Star Trek starships. 
+            Rotate, zoom, and interact with your favorite vessels.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="premium-section">
+      <div class="premium-badge">PREMIUM</div>
+      <h2 class="premium-title">Unlock the Full Experience</h2>
+      <p style="color: #cbd5e1; font-size: 18px; margin-bottom: 32px;">
+        Upgrade to Premium and enjoy exclusive benefits that enhance your Star Trek journey.
+      </p>
+      
+      <div class="premium-features">
+        <div class="premium-feature">
+          <strong>Daily Dilithium Bonus</strong><br>
+          Earn 50 Dilithium crystals every day
+        </div>
+        <div class="premium-feature">
+          <strong>Unlimited Ad Rewards</strong><br>
+          Watch ads as many times as you want
+        </div>
+        <div class="premium-feature">
+          <strong>Ad-Free Experience</strong><br>
+          Enjoy uninterrupted gameplay
+        </div>
+        <div class="premium-feature">
+          <strong>Premium Keys</strong><br>
+          Unlock 5 locked items without spending Dilithium
+        </div>
+        <div class="premium-feature">
+          <strong>Exclusive Ranks</strong><br>
+          Earn Captain or Admiral status
+        </div>
+        <div class="premium-feature">
+          <strong>Priority Support</strong><br>
+          Get faster response times for support
+        </div>
+      </div>
+    </div>
+    
+    <div class="cta-section">
+      <h2 class="cta-title">Begin Your Journey</h2>
+      <p class="cta-text">
+        Join thousands of Star Trek fans documenting their adventures and testing their knowledge. 
+        Download Captain's Log: Stardate today and start your mission.
+      </p>
+      <a href="#" class="download-badge" style="font-size: 18px; padding: 16px 32px;">
+        Get Started on the App Store
+      </a>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>&copy; 2025 Captain's Log: Stardate. All rights reserved.</p>
+    <p style="margin-top: 8px; font-size: 14px;">
+      Live long and prosper 🖖
+    </p>
+    <div class="footer-links">
+      <a href="support.html" class="footer-link">Support</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <a href="terms.html" class="footer-link">Terms of Use</a>
+    </div>
+  </div>
 </body>
 </html>
