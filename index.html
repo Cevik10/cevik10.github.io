@@ -10,28 +10,33 @@
   <meta property="og:title" content="Agile Conqueror Company — Indie Mobile App Studio" />
   <meta property="og:description" content="Apps for explorers, learners, and dreamers. Fan companions, puzzles, education, and sci-fi RPG experiences." />
   <meta property="og:url" content="https://cevik10.github.io/" />
-  <meta property="og:image" content="https://cevik10.github.io/assets/images/og-placeholder.svg" />
+  <meta property="og:image" content="https://cevik10.github.io/assets/images/studio/cover.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agile Conqueror Company" />
   <meta name="twitter:description" content="Indie mobile app studio — Always for the better..." />
-  <meta name="twitter:image" content="https://cevik10.github.io/assets/images/og-placeholder.svg" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230B1020' width='100' height='100' rx='20'/><path fill='%232DD4BF' d='M50 20 L75 70 L25 70 Z'/><circle fill='%23F5C542' cx='50' cy='55' r='6'/></svg>" />
+  <meta name="twitter:image" content="https://cevik10.github.io/assets/images/studio/cover.jpg" />
+  <link rel="icon" id="dynamic-favicon" href="assets/images/studio/logo.png" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="starfield" aria-hidden="true"></div>
+  <div class="cosmos" aria-hidden="true">
+    <div class="starfield"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="shooting-stars"></div>
+  </div>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container nav-inner">
       <a class="brand" href="/" aria-label="Agile Conqueror Company home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 3 L20 18 H4 Z" stroke="#0B1020" fill="#0B1020"/>
-            <circle cx="12" cy="14" r="2" fill="#F5C542"/>
-          </svg>
+        <img class="brand-logo" data-studio-logo src="assets/images/studio/logo.png" alt="" width="40" height="40" />
+        <span class="brand-text">
+          <span class="brand-name">Agile Conqueror</span>
+          <span class="brand-sub">Company</span>
         </span>
-        <span>Agile Conqueror</span>
       </a>
 
       <nav aria-label="Main navigation">
@@ -55,108 +60,131 @@
   </header>
 
   <main id="main">
-    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-content reveal">
-          <p class="hero-tagline">Agile Conqueror Company</p>
-          <h1 id="hero-title" class="hero-title">Apps for explorers, learners, and dreamers.</h1>
-          <p class="hero-subtitle">Agile Conqueror Company builds mobile experiences across galaxies, classrooms, puzzles, and living rooms.</p>
+      <div class="hero-cover-wrap" aria-hidden="true">
+        <img class="hero-cover-img" data-studio-cover src="assets/images/studio/cover.jpg" alt="" />
+        <div class="hero-cover-vignette"></div>
+        <div class="hero-scanlines"></div>
+      </div>
+
+      <div class="container hero-layout">
+        <div class="hero-copy reveal">
+          <div class="hero-studio-badge">
+            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="56" height="56" />
+            <div>
+              <p class="hero-tagline">Agile Conqueror Company</p>
+              <p class="hero-motto-inline">Always for the better...</p>
+            </div>
+          </div>
+          <h1 id="hero-title" class="hero-title">
+            <span class="hero-title-line">Apps for explorers,</span>
+            <span class="hero-title-line accent">learners & dreamers.</span>
+          </h1>
+          <p class="hero-subtitle">A personal indie studio crafting mobile worlds — from command decks and galactic companions to cat puzzles, geography blocks, and kids' learning adventures.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#apps">Explore Our Apps</a>
             <a class="btn btn-secondary" href="#support">Get Support</a>
           </div>
-          <p class="hero-motto">Always for the better...</p>
+          <div class="featured-strip" id="featured-strip" aria-label="Featured apps"></div>
         </div>
 
-        <div class="bridge-viewport reveal" aria-hidden="true">
-          <div class="hud-corner tl"></div>
-          <div class="hud-corner tr"></div>
-          <div class="hud-corner bl"></div>
-          <div class="hud-corner br"></div>
-          <div class="viewport-frame">
-            <div class="viewport-inner">
-              <div class="constellation" id="constellation"></div>
-            </div>
+        <div class="hero-orbit-stage reveal" aria-hidden="true">
+          <div class="orbit-rings">
+            <div class="orbit-ring-outer"></div>
+            <div class="orbit-ring-mid"></div>
+            <div class="orbit-ring-inner"></div>
+          </div>
+          <div class="orbit-core">
+            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="88" height="88" />
+            <div class="orbit-core-pulse"></div>
+          </div>
+          <div class="orbit-ring" id="orbit-ring"></div>
+          <div class="hud-readout hud-readout--tl">SECTOR 07 / ACC</div>
+          <div class="hud-readout hud-readout--br">CONSTELLATION CRAFT</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="story-title">
+      <div class="container reveal">
+        <p class="section-label">Transmission</p>
+        <h2 id="story-title" class="section-title">One developer. Many worlds.</h2>
+        <div class="panel story-panel story-panel--wide">
+          <div class="story-visual">
+            <img data-studio-cover src="assets/images/studio/cover.jpg" alt="Agile Conqueror Company studio artwork" loading="lazy" />
+          </div>
+          <div class="story-text">
+            <p>Agile Conqueror Company is an indie mobile app studio built around curiosity, craft, and the joy of creating small digital worlds. From sci-fi companion tools and interactive RPG ideas to cat quizzes, geography puzzles, kids' learning, and everyday utilities — every app is made with the same goal: to become a little better with every release.</p>
+            <p>This isn't a corporate fleet. It's a personal workshop at the edge of the final frontier — serious enough for command-deck companions, warm enough for cats and kids, and handcrafted with care.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Studio Story -->
-    <section class="section" aria-labelledby="story-title">
-      <div class="container reveal">
-        <p class="section-label">Our Story</p>
-        <h2 id="story-title" class="section-title">One developer. Many worlds.</h2>
-        <div class="panel story-panel">
-          <p>Agile Conqueror Company is an indie mobile app studio built around curiosity, craft, and the joy of creating small digital worlds. From sci-fi companion tools and interactive RPG ideas to cat quizzes, geography puzzles, kids' learning, and everyday utilities — every app is made with the same goal: to become a little better with every release.</p>
-          <p>Each project is a different constellation in the same sky — serious enough for command-deck companions, warm enough for cats and kids, and personal enough to feel handcrafted.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Apps -->
     <section class="section" id="apps" aria-labelledby="apps-title">
       <div class="container reveal">
-        <p class="section-label">App Catalog</p>
-        <h2 id="apps-title" class="section-title">Our constellation of apps</h2>
-        <p class="section-lead">Fan companions, puzzles, education, kids' learning, and utilities — filter by category to explore.</p>
-
+        <p class="section-label">Mission Catalog</p>
+        <h2 id="apps-title" class="section-title">Constellation of apps</h2>
+        <p class="section-lead">Real apps, real screenshots — filter by category and beam aboard.</p>
         <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter apps by category"></div>
         <div class="apps-grid" id="apps-grid"></div>
       </div>
     </section>
 
-    <!-- About -->
     <section class="section" id="about" aria-labelledby="about-title">
       <div class="container">
         <div class="about-grid">
           <div class="reveal">
-            <p class="section-label">About</p>
+            <p class="section-label">About the Studio</p>
             <h2 id="about-title" class="section-title">Building small worlds, one app at a time.</h2>
-            <p class="section-lead" style="margin-bottom: 0;">Agile Conqueror Company is an independent studio — not a corporate team, not a faceless brand. Just one developer with many passions and a commitment to iteration.</p>
+            <p class="section-lead" style="margin-bottom: 0;">Independent. Personal. Iterative. One developer with many passions — fandom, learning, puzzles, and playful tools — all orbiting the same belief: every release should be better than the last.</p>
             <ul class="about-list">
-              <li>Passion for fandom, learning, puzzles, and playful tools</li>
-              <li>Built independently on iOS and Android</li>
-              <li>Every release aims to be better than the last</li>
-              <li>Warm, curious, and craft-driven by design</li>
+              <li>Passion projects for sci-fi & superhero fans</li>
+              <li>Puzzles, education, and kids' learning apps</li>
+              <li>Published on App Store & Google Play</li>
+              <li>Craft-driven — never rushed, never generic</li>
             </ul>
+            <a class="btn btn-secondary" href="https://play.google.com/store/apps/dev?id=5496923901044457269" target="_blank" rel="noopener noreferrer" style="margin-top: 24px;">View on Google Play</a>
           </div>
-          <div class="values-grid reveal">
-            <div class="panel value-card">
-              <h3>Curiosity First</h3>
-              <p>Every app starts with a question — what would be fun, useful, or meaningful to build?</p>
+          <div class="about-visual reveal">
+            <div class="panel about-logo-panel">
+              <img data-studio-logo src="assets/images/studio/logo.png" alt="Agile Conqueror Company" width="160" height="160" loading="lazy" />
+              <p class="about-logo-caption">Agile Conqueror Company</p>
+              <p class="footer-tagline">Always for the better...</p>
             </div>
-            <div class="panel value-card">
-              <h3>Craft Over Scale</h3>
-              <p>Small, focused experiences polished with care rather than rushed for volume.</p>
-            </div>
-            <div class="panel value-card">
-              <h3>Always Improving</h3>
-              <p>Updates, refinements, and new ideas — because "Always for the better..." is not just a tagline.</p>
+            <div class="values-grid">
+              <div class="panel value-card">
+                <h3>Curiosity First</h3>
+                <p>Every app starts with a question — what would be fun, useful, or meaningful to build?</p>
+              </div>
+              <div class="panel value-card">
+                <h3>Craft Over Scale</h3>
+                <p>Small, focused experiences polished with care rather than rushed for volume.</p>
+              </div>
+              <div class="panel value-card">
+                <h3>Always Improving</h3>
+                <p>Updates, refinements, and new ideas — the studio motto in action.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Support -->
     <section class="section" id="support" aria-labelledby="support-title">
       <div class="container">
-        <p class="section-label reveal">Support</p>
-        <h2 id="support-title" class="section-title reveal">We're here to help</h2>
-        <p class="section-lead reveal">Questions, bugs, or feedback — reach out anytime.</p>
+        <p class="section-label reveal">Support Channel</p>
+        <h2 id="support-title" class="section-title reveal">Open a comms line</h2>
+        <p class="section-lead reveal">Questions, bugs, or feedback — we're listening.</p>
 
         <div class="support-grid">
           <div class="panel contact-card reveal">
-            <div class="contact-icon" aria-hidden="true">✉️</div>
+            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="64" height="64" style="border-radius: 16px; margin-bottom: 16px;" />
             <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 12px;">Contact Support</h3>
             <a class="contact-email" href="mailto:hakanxcevik7@gmail.com">hakanxcevik7@gmail.com</a>
-            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 16px;">Include your app name, device, and OS version for faster help.</p>
-
+            <p class="contact-hint">Include your app name, device, and OS version for faster help.</p>
             <div class="support-apps" id="support-apps" aria-label="Quick links to apps"></div>
           </div>
-
           <div class="reveal">
             <h3 class="section-title" style="font-size: 1.1rem; margin-bottom: 20px;">Frequently Asked Questions</h3>
             <div class="faq-list" id="faq-list"></div>
@@ -169,7 +197,8 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
+        <div class="footer-brand-col">
+          <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="48" height="48" class="footer-logo" />
           <p class="footer-brand">Agile Conqueror Company</p>
           <p class="footer-tagline">Always for the better...</p>
           <p class="footer-text">An indie mobile app studio crafting fan companions, puzzles, education apps, and utilities for explorers, learners, and dreamers.</p>
@@ -185,16 +214,12 @@
           </ul>
         </div>
         <div>
-          <p class="footer-heading">Connect</p>
+          <p class="footer-heading">Download</p>
           <ul class="footer-links">
             <li><a href="mailto:hakanxcevik7@gmail.com">hakanxcevik7@gmail.com</a></li>
-            <li><a href="https://apps.apple.com/us/iphone/search?term=hakan%20cevik" target="_blank" rel="noopener noreferrer">App Store</a></li>
+            <li><a href="https://apps.apple.com/us/developer/hakan-cevik/id1852694895" target="_blank" rel="noopener noreferrer">App Store</a></li>
             <li><a href="https://play.google.com/store/apps/dev?id=5496923901044457269" target="_blank" rel="noopener noreferrer">Google Play</a></li>
           </ul>
-          <div class="social-links" style="margin-top: 16px;" aria-label="Social links">
-            <a class="social-link" href="#" aria-label="Twitter (placeholder)" title="Coming soon">𝕏</a>
-            <a class="social-link" href="#" aria-label="GitHub (placeholder)" title="Coming soon">GH</a>
-          </div>
         </div>
       </div>
       <div class="footer-bottom">

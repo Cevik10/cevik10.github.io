@@ -3,7 +3,6 @@
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Navigation */
   function initNav() {
     const toggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
@@ -37,63 +36,138 @@
     }
   }
 
-  /* Hero constellation */
-  function renderConstellation() {
-    const container = document.getElementById("constellation");
-    if (!container || typeof HERO_ORBIT_APPS === "undefined") return;
+  function initStudioBranding() {
+    if (typeof STUDIO === "undefined") return;
 
-    HERO_ORBIT_APPS.forEach((node) => {
-      const el = document.createElement("div");
-      el.className = "orbit-node";
-      el.setAttribute("aria-hidden", "true");
-      el.style.top = node.top;
-      el.style.left = node.left;
-      el.textContent = node.icon;
-      container.appendChild(el);
+    const logoEls = document.querySelectorAll("[data-studio-logo]");
+    logoEls.forEach((el) => {
+      el.src = STUDIO.logo;
+      el.alt = STUDIO.name + " logo";
+    });
+
+    const coverEls = document.querySelectorAll("[data-studio-cover]");
+    coverEls.forEach((el) => {
+      el.src = STUDIO.cover;
+      el.alt = STUDIO.name + " cover art";
+    });
+
+    const favicon = document.getElementById("dynamic-favicon");
+    if (favicon && STUDIO.logo) favicon.href = STUDIO.logo;
+  }
+
+  function renderOrbit() {
+    const ring = document.getElementById("orbit-ring");
+    if (!ring || typeof HERO_ORBIT_APPS === "undefined") return;
+
+    const items = HERO_ORBIT_APPS.filter((a) => a.icon);
+    const count = items.length;
+    const radius = window.innerWidth < 720 ? 130 : 175;
+
+    items.forEach((app, i) => {
+      const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+      const x = 50 + (Math.cos(angle) * radius) / 3.2;
+      const y = 50 + (Math.sin(angle) * radius) / 3.2;
+
+      const node = document.createElement("a");
+      node.className = "orbit-app";
+      node.href = "#apps";
+      node.style.left = x + "%";
+      node.style.top = y + "%";
+      node.style.animationDelay = i * -0.7 + "s";
+      node.title = app.name;
+      node.setAttribute("aria-label", app.name);
+      node.innerHTML = `<img src="${app.icon}" alt="" loading="lazy" /><span class="orbit-glow"></span>`;
+      node.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("apps")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+        setTimeout(() => {
+          document.querySelector(`[data-app-id="${app.id}"]`)?.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "center"
+          });
+        }, 300);
+      });
+      ring.appendChild(node);
     });
   }
 
-  /* App cards */
+  function renderFeaturedStrip() {
+    const strip = document.getElementById("featured-strip");
+    if (!strip || typeof APPS === "undefined") return;
+
+    const featured = APPS.filter((a) => a.featured);
+    strip.innerHTML = featured
+      .map(
+        (app) => `
+      <a class="featured-chip" href="#apps" data-scroll-app="${app.id}">
+        <img src="${app.icon}" alt="" width="32" height="32" loading="lazy" />
+        <span>${app.name}</span>
+        ${app.comingSoon ? '<em class="chip-soon">Soon</em>' : ""}
+      </a>`
+      )
+      .join("");
+
+    strip.addEventListener("click", (e) => {
+      const link = e.target.closest("[data-scroll-app]");
+      if (!link) return;
+      e.preventDefault();
+      const card = document.querySelector(`[data-app-id="${link.dataset.scrollApp}"]`);
+      document.getElementById("apps")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+      card?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
+    });
+  }
+
+  function storeButton(url, label, disabled) {
+    if (disabled) return `<span class="btn btn-store disabled" aria-disabled="true">${label}</span>`;
+    if (!url) return "";
+    return `<a class="btn btn-store" href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+  }
+
   function renderAppCard(app) {
     const unofficial = app.unofficial
       ? '<p class="unofficial-note">Unofficial fan companion — not affiliated with any rights holder.</p>'
       : "";
 
-    const comingSoon = app.comingSoon
-      ? '<span class="coming-soon-badge">Coming Soon</span>'
-      : "";
+    const comingSoon = app.comingSoon ? '<span class="coming-soon-badge">Coming Soon</span>' : "";
 
-    const appStoreBtn =
-      app.appStore && app.appStore !== "#"
-        ? `<a class="btn btn-store" href="${app.appStore}" target="_blank" rel="noopener noreferrer">App Store</a>`
-        : app.comingSoon
-          ? `<span class="btn btn-store disabled" aria-disabled="true">App Store</span>`
-          : `<a class="btn btn-store" href="${STUDIO.appStoreDeveloper}" target="_blank" rel="noopener noreferrer">App Store</a>`;
+    const visual = app.screenshot
+      ? `<div class="app-card-visual">
+          <img class="app-screenshot" src="${app.screenshot}" alt="${app.name} screenshot" loading="lazy" />
+          <div class="app-visual-overlay"></div>
+          <img class="app-icon-img" src="${app.icon}" alt="${app.name} icon" width="72" height="72" loading="lazy" />
+        </div>`
+      : `<div class="app-card-visual app-card-visual--icon-only">
+          <div class="app-visual-fallback"></div>
+          <img class="app-icon-img app-icon-img--large" src="${app.icon}" alt="${app.name} icon" width="96" height="96" loading="lazy" />
+        </div>`;
 
-    const playBtn =
-      app.googlePlay && app.googlePlay !== "#"
-        ? `<a class="btn btn-store" href="${app.googlePlay}" target="_blank" rel="noopener noreferrer">Google Play</a>`
-        : app.comingSoon
-          ? `<span class="btn btn-store disabled" aria-disabled="true">Google Play</span>`
-          : `<a class="btn btn-store" href="${STUDIO.googlePlayDeveloper}" target="_blank" rel="noopener noreferrer">Google Play</a>`;
+    const appStoreBtn = app.comingSoon
+      ? storeButton(null, "App Store", true)
+      : app.appStore
+        ? storeButton(app.appStore, "App Store", false)
+        : "";
+
+    const playBtn = app.comingSoon
+      ? storeButton(null, "Google Play", true)
+      : app.googlePlay
+        ? storeButton(app.googlePlay, "Google Play", false)
+        : "";
 
     return `
       <article class="panel app-card fade-in" data-category="${app.category}" data-accent="${app.accent}" data-app-id="${app.id}">
-        <div class="app-card-header">
-          <div class="app-icon" aria-hidden="true">${app.icon}</div>
-          <div>
-            <span class="app-badge">${app.categoryLabel}</span>
-            <h3 class="app-name">${app.name}</h3>
-            <p class="app-hook">${app.hook}</p>
+        ${visual}
+        <div class="app-card-body">
+          <span class="app-badge">${app.categoryLabel}</span>
+          ${comingSoon}
+          <h3 class="app-name">${app.name}</h3>
+          <p class="app-hook">${app.hook}</p>
+          <p class="app-desc">${app.description}</p>
+          <div class="app-actions">
+            ${appStoreBtn}
+            ${playBtn}
           </div>
+          ${unofficial}
         </div>
-        ${comingSoon}
-        <p class="app-desc">${app.description}</p>
-        <div class="app-actions">
-          ${appStoreBtn}
-          ${playBtn}
-        </div>
-        ${unofficial}
       </article>
     `;
   }
@@ -131,24 +205,23 @@
     if (supportApps) {
       supportApps.innerHTML = APPS.map(
         (app) =>
-          `<a class="support-app-link" href="#apps" data-scroll-app="${app.id}">${app.icon} ${app.name}</a>`
+          `<a class="support-app-link" href="#apps" data-scroll-app="${app.id}">
+            <img src="${app.icon}" alt="" width="28" height="28" loading="lazy" />
+            <span>${app.name}</span>
+          </a>`
       ).join("");
 
       supportApps.addEventListener("click", (e) => {
         const link = e.target.closest("[data-scroll-app]");
         if (!link) return;
         e.preventDefault();
-        const id = link.dataset.scrollApp;
-        const card = grid.querySelector(`[data-app-id="${id}"]`);
-        if (card) {
-          document.getElementById("apps")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
-          card.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
-        }
+        const card = grid.querySelector(`[data-app-id="${link.dataset.scrollApp}"]`);
+        document.getElementById("apps")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+        card?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
       });
     }
   }
 
-  /* FAQ accordion */
   function initFAQ() {
     const list = document.getElementById("faq-list");
     if (!list || typeof FAQ_ITEMS === "undefined") return;
@@ -188,7 +261,6 @@
     });
   }
 
-  /* Scroll reveal */
   function initReveal() {
     if (prefersReducedMotion) {
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
@@ -204,17 +276,35 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
     );
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   }
 
+  function initParallax() {
+    if (prefersReducedMotion) return;
+    const cover = document.querySelector(".hero-cover-img");
+    if (!cover) return;
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = window.scrollY * 0.35;
+        cover.style.transform = `translate3d(0, ${y}px, 0) scale(1.08)`;
+      },
+      { passive: true }
+    );
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     initNav();
-    renderConstellation();
+    initStudioBranding();
+    renderOrbit();
+    renderFeaturedStrip();
     renderApps();
     initFAQ();
     initReveal();
+    initParallax();
   });
 })();
