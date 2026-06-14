@@ -6,7 +6,6 @@ const STUDIO = {
   tagline: "Always for the better...",
   email: "hakanxcevik7@gmail.com",
   logo: "assets/images/studio/logo.png",
-  cover: "assets/images/studio/cover.jpg",
   appStoreDeveloper: "https://apps.apple.com/us/developer/hakan-cevik/id1852694895",
   googlePlayDeveloper: "https://play.google.com/store/apps/dev?id=5496923901044457269"
 };
