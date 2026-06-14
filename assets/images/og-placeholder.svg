@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0B1020"/>
+      <stop offset="100%" style="stop-color:#12182B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#2DD4BF;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#2DD4BF;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="200" cy="120" r="2" fill="#fff" opacity="0.6"/>
+  <circle cx="980" cy="180" r="1.5" fill="#fff" opacity="0.5"/>
+  <circle cx="600" cy="80" r="2" fill="#fff" opacity="0.4"/>
+  <circle cx="1100" cy="400" r="1.5" fill="#fff" opacity="0.5"/>
+  <circle cx="150" cy="500" r="2" fill="#fff" opacity="0.45"/>
+  <text x="600" y="280" text-anchor="middle" font-family="system-ui,sans-serif" font-size="52" font-weight="700" fill="#E8EDF8">Agile Conqueror Company</text>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" fill="#2DD4BF">Apps for explorers, learners, and dreamers.</text>
+  <text x="600" y="390" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" fill="#94A3B8" font-style="italic">Always for the better...</text>
+</svg>

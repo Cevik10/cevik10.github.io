@@ -2,415 +2,209 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Captain's Log: Stardate – Official App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Captain's Log: Stardate - Your personal Star Trek journey. Log entries, quizzes, memory games, and more!" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1629 100%);
-      color: #e0e7ff;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-    
-    .hero {
-      text-align: center;
-      padding: 80px 20px 60px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    
-    .logo {
-      font-size: 48px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #fbbf24 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
-    }
-    
-    .tagline {
-      font-size: 22px;
-      color: #94a3b8;
-      margin-bottom: 32px;
-      font-weight: 300;
-    }
-    
-    .download-badge {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 24px;
-      background: rgba(99, 102, 241, 0.2);
-      border: 2px solid #6366f1;
-      border-radius: 12px;
-      color: #60a5fa;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    
-    .download-badge:hover {
-      background: rgba(99, 102, 241, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
-    }
-    
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-    
-    .section {
-      margin-bottom: 60px;
-      padding: 40px;
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 20px;
-      border: 1px solid rgba(99, 102, 241, 0.2);
-      backdrop-filter: blur(10px);
-    }
-    
-    .section-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: #60a5fa;
-      margin-bottom: 24px;
-      text-align: center;
-      position: relative;
-      padding-bottom: 16px;
-    }
-    
-    .section-title::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(90deg, #6366f1, #fbbf24);
-      border-radius: 2px;
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
-    }
-    
-    .feature-card {
-      padding: 24px;
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 12px;
-      border-left: 4px solid #fbbf24;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(99, 102, 241, 0.2);
-    }
-    
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
-    
-    .feature-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: #60a5fa;
-      margin-bottom: 8px;
-    }
-    
-    .feature-desc {
-      color: #cbd5e1;
-      font-size: 15px;
-    }
-    
-    .premium-section {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(251, 191, 36, 0.1) 100%);
-      border: 2px solid rgba(251, 191, 36, 0.3);
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-    }
-    
-    .premium-badge {
-      display: inline-block;
-      padding: 8px 20px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      color: #0a0e27;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-    
-    .premium-title {
-      font-size: 36px;
-      font-weight: 700;
-      color: #fbbf24;
-      margin-bottom: 16px;
-    }
-    
-    .premium-features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 32px;
-      text-align: left;
-    }
-    
-    .premium-feature {
-      padding: 16px;
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 10px;
-      border: 1px solid rgba(251, 191, 36, 0.2);
-    }
-    
-    .premium-feature::before {
-      content: "✓";
-      color: #fbbf24;
-      font-weight: bold;
-      margin-right: 8px;
-    }
-    
-    .cta-section {
-      text-align: center;
-      padding: 60px 40px;
-      background: rgba(99, 102, 241, 0.1);
-      border-radius: 20px;
-      border: 2px dashed rgba(99, 102, 241, 0.3);
-    }
-    
-    .cta-title {
-      font-size: 36px;
-      font-weight: 700;
-      color: #60a5fa;
-      margin-bottom: 16px;
-    }
-    
-    .cta-text {
-      font-size: 18px;
-      color: #cbd5e1;
-      margin-bottom: 32px;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: #94a3b8;
-      border-top: 1px solid rgba(99, 102, 241, 0.2);
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .footer-link {
-      color: #60a5fa;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    
-    .footer-link:hover {
-      color: #fbbf24;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    .floating {
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    @media (max-width: 640px) {
-      .logo {
-        font-size: 36px;
-      }
-      
-      .tagline {
-        font-size: 18px;
-      }
-      
-      .section {
-        padding: 24px;
-      }
-      
-      .section-title {
-        font-size: 26px;
-      }
-      
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <title>Agile Conqueror Company — Indie Mobile App Studio</title>
+  <meta name="description" content="Agile Conqueror Company is an indie mobile app studio building fan companions, sci-fi RPG experiences, puzzle games, kids' learning apps, and utilities." />
+  <meta name="author" content="Agile Conqueror Company" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Agile Conqueror Company — Indie Mobile App Studio" />
+  <meta property="og:description" content="Apps for explorers, learners, and dreamers. Fan companions, puzzles, education, and sci-fi RPG experiences." />
+  <meta property="og:url" content="https://cevik10.github.io/" />
+  <meta property="og:image" content="https://cevik10.github.io/assets/images/og-placeholder.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agile Conqueror Company" />
+  <meta name="twitter:description" content="Indie mobile app studio — Always for the better..." />
+  <meta name="twitter:image" content="https://cevik10.github.io/assets/images/og-placeholder.svg" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230B1020' width='100' height='100' rx='20'/><path fill='%232DD4BF' d='M50 20 L75 70 L25 70 Z'/><circle fill='%23F5C542' cx='50' cy='55' r='6'/></svg>" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="hero">
-    <div class="logo floating">Captain's Log: Stardate</div>
-    <p class="tagline">Your Personal Star Trek Journey</p>
-    <p style="color: #cbd5e1; font-size: 18px; max-width: 600px; margin: 0 auto;">
-      Document your adventures, test your knowledge, and explore the final frontier 
-      with the ultimate Star Trek companion app.
-    </p>
-    <a href="https://apps.apple.com/us/app/captains-log-stardate/id6755225372" class="download-badge" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
-  </div>
-  
-  <div class="container">
-    <div class="section">
-      <h2 class="section-title">Features</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">📝</div>
-          <div class="feature-title">Captain's Log</div>
-          <div class="feature-desc">
-            Document your Star Trek journey with text, images, and audio recordings. 
-            Create detailed log entries of your adventures.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🧠</div>
-          <div class="feature-title">Interactive Quizzes</div>
-          <div class="feature-desc">
-            Test your knowledge with challenging quizzes covering all Star Trek series, 
-            characters, and lore. Earn Dilithium crystals as you progress.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🎮</div>
-          <div class="feature-title">Memory Games</div>
-          <div class="feature-desc">
-            Challenge your memory with Star Trek-themed card matching games. 
-            Multiple difficulty levels and categories to explore.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <div class="feature-title">Daily Missions</div>
-          <div class="feature-desc">
-            Complete daily missions to earn rewards and track your progress. 
-            New challenges await you every day.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🏆</div>
-          <div class="feature-title">Badges & Achievements</div>
-          <div class="feature-desc">
-            Unlock badges and achievements as you explore the app. 
-            Show off your Star Trek expertise with exclusive ranks.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🔊</div>
-          <div class="feature-title">Sound Board</div>
-          <div class="feature-desc">
-            Enjoy authentic Star Trek sound effects. Play iconic sounds 
-            from the series whenever you want.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <div class="feature-title">Statistics Dashboard</div>
-          <div class="feature-desc">
-            Track your progress with detailed statistics. View your quiz scores, 
-            game performance, and activity charts.
-          </div>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <div class="feature-title">3D Models</div>
-          <div class="feature-desc">
-            Explore detailed 3D models of iconic Star Trek starships. 
-            Rotate, zoom, and interact with your favorite vessels.
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="premium-section">
-      <div class="premium-badge">PREMIUM</div>
-      <h2 class="premium-title">Unlock the Full Experience</h2>
-      <p style="color: #cbd5e1; font-size: 18px; margin-bottom: 32px;">
-        Upgrade to Premium and enjoy exclusive benefits that enhance your Star Trek journey.
-      </p>
-      
-      <div class="premium-features">
-        <div class="premium-feature">
-          <strong>Daily Dilithium Bonus</strong><br>
-          Earn 50 Dilithium crystals every day
-        </div>
-        <div class="premium-feature">
-          <strong>Unlimited Ad Rewards</strong><br>
-          Watch ads as many times as you want
-        </div>
-        <div class="premium-feature">
-          <strong>Ad-Free Experience</strong><br>
-          Enjoy uninterrupted gameplay
-        </div>
-        <div class="premium-feature">
-          <strong>Premium Keys</strong><br>
-          Unlock 5 locked items without spending Dilithium
-        </div>
-        <div class="premium-feature">
-          <strong>Exclusive Ranks</strong><br>
-          Earn Captain or Admiral status
-        </div>
-        <div class="premium-feature">
-          <strong>Priority Support</strong><br>
-          Get faster response times for support
-        </div>
-      </div>
-    </div>
-    
-    <div class="cta-section">
-      <h2 class="cta-title">Begin Your Journey</h2>
-      <p class="cta-text">
-        Join thousands of Star Trek fans documenting their adventures and testing their knowledge. 
-        Download Captain's Log: Stardate today and start your mission.
-      </p>
-      <a href="https://apps.apple.com/us/app/captains-log-stardate/id6755225372" class="download-badge" style="font-size: 18px; padding: 16px 32px;" target="_blank" rel="noopener noreferrer">
-        Get Started on the App Store
+  <div class="starfield" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="/" aria-label="Agile Conqueror Company home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3 L20 18 H4 Z" stroke="#0B1020" fill="#0B1020"/>
+            <circle cx="12" cy="14" r="2" fill="#F5C542"/>
+          </svg>
+        </span>
+        <span>Agile Conqueror</span>
       </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links">
+          <li><a href="#apps">Apps</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#support">Support</a></li>
+          <li><a href="privacy.html">Legal</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle light mode" title="Toggle theme">
+          <span aria-hidden="true">☀</span>
+        </button>
+        <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span aria-hidden="true">☰</span>
+        </button>
+      </div>
     </div>
-  </div>
-  
-  <div class="footer">
-    <p>&copy; 2025 Captain's Log: Stardate. All rights reserved.</p>
-    <p style="margin-top: 8px; font-size: 14px;">
-      Live long and prosper 🖖
-    </p>
-    <div class="footer-links">
-      <a href="support.html" class="footer-link">Support</a>
-      <a href="https://hakanncevikk.blogspot.com/2025/11/captains-log-privacy-policy.html" class="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-      <a href="https://hakanncevikk.blogspot.com/2025/11/captains-log-terms-of-use.html" class="footer-link" target="_blank" rel="noopener noreferrer">Terms of Use</a>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <p class="hero-tagline">Agile Conqueror Company</p>
+          <h1 id="hero-title" class="hero-title">Apps for explorers, learners, and dreamers.</h1>
+          <p class="hero-subtitle">Agile Conqueror Company builds mobile experiences across galaxies, classrooms, puzzles, and living rooms.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#apps">Explore Our Apps</a>
+            <a class="btn btn-secondary" href="#support">Get Support</a>
+          </div>
+          <p class="hero-motto">Always for the better...</p>
+        </div>
+
+        <div class="bridge-viewport reveal" aria-hidden="true">
+          <div class="hud-corner tl"></div>
+          <div class="hud-corner tr"></div>
+          <div class="hud-corner bl"></div>
+          <div class="hud-corner br"></div>
+          <div class="viewport-frame">
+            <div class="viewport-inner">
+              <div class="constellation" id="constellation"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Story -->
+    <section class="section" aria-labelledby="story-title">
+      <div class="container reveal">
+        <p class="section-label">Our Story</p>
+        <h2 id="story-title" class="section-title">One developer. Many worlds.</h2>
+        <div class="panel story-panel">
+          <p>Agile Conqueror Company is an indie mobile app studio built around curiosity, craft, and the joy of creating small digital worlds. From sci-fi companion tools and interactive RPG ideas to cat quizzes, geography puzzles, kids' learning, and everyday utilities — every app is made with the same goal: to become a little better with every release.</p>
+          <p>Each project is a different constellation in the same sky — serious enough for command-deck companions, warm enough for cats and kids, and personal enough to feel handcrafted.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apps -->
+    <section class="section" id="apps" aria-labelledby="apps-title">
+      <div class="container reveal">
+        <p class="section-label">App Catalog</p>
+        <h2 id="apps-title" class="section-title">Our constellation of apps</h2>
+        <p class="section-lead">Fan companions, puzzles, education, kids' learning, and utilities — filter by category to explore.</p>
+
+        <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter apps by category"></div>
+        <div class="apps-grid" id="apps-grid"></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="reveal">
+            <p class="section-label">About</p>
+            <h2 id="about-title" class="section-title">Building small worlds, one app at a time.</h2>
+            <p class="section-lead" style="margin-bottom: 0;">Agile Conqueror Company is an independent studio — not a corporate team, not a faceless brand. Just one developer with many passions and a commitment to iteration.</p>
+            <ul class="about-list">
+              <li>Passion for fandom, learning, puzzles, and playful tools</li>
+              <li>Built independently on iOS and Android</li>
+              <li>Every release aims to be better than the last</li>
+              <li>Warm, curious, and craft-driven by design</li>
+            </ul>
+          </div>
+          <div class="values-grid reveal">
+            <div class="panel value-card">
+              <h3>Curiosity First</h3>
+              <p>Every app starts with a question — what would be fun, useful, or meaningful to build?</p>
+            </div>
+            <div class="panel value-card">
+              <h3>Craft Over Scale</h3>
+              <p>Small, focused experiences polished with care rather than rushed for volume.</p>
+            </div>
+            <div class="panel value-card">
+              <h3>Always Improving</h3>
+              <p>Updates, refinements, and new ideas — because "Always for the better..." is not just a tagline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section class="section" id="support" aria-labelledby="support-title">
+      <div class="container">
+        <p class="section-label reveal">Support</p>
+        <h2 id="support-title" class="section-title reveal">We're here to help</h2>
+        <p class="section-lead reveal">Questions, bugs, or feedback — reach out anytime.</p>
+
+        <div class="support-grid">
+          <div class="panel contact-card reveal">
+            <div class="contact-icon" aria-hidden="true">✉️</div>
+            <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 12px;">Contact Support</h3>
+            <a class="contact-email" href="mailto:hakanxcevik7@gmail.com">hakanxcevik7@gmail.com</a>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 16px;">Include your app name, device, and OS version for faster help.</p>
+
+            <div class="support-apps" id="support-apps" aria-label="Quick links to apps"></div>
+          </div>
+
+          <div class="reveal">
+            <h3 class="section-title" style="font-size: 1.1rem; margin-bottom: 20px;">Frequently Asked Questions</h3>
+            <div class="faq-list" id="faq-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand">Agile Conqueror Company</p>
+          <p class="footer-tagline">Always for the better...</p>
+          <p class="footer-text">An indie mobile app studio crafting fan companions, puzzles, education apps, and utilities for explorers, learners, and dreamers.</p>
+        </div>
+        <div>
+          <p class="footer-heading">Navigate</p>
+          <ul class="footer-links">
+            <li><a href="#apps">Apps</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Use</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-heading">Connect</p>
+          <ul class="footer-links">
+            <li><a href="mailto:hakanxcevik7@gmail.com">hakanxcevik7@gmail.com</a></li>
+            <li><a href="https://apps.apple.com/us/iphone/search?term=hakan%20cevik" target="_blank" rel="noopener noreferrer">App Store</a></li>
+            <li><a href="https://play.google.com/store/apps/dev?id=5496923901044457269" target="_blank" rel="noopener noreferrer">Google Play</a></li>
+          </ul>
+          <div class="social-links" style="margin-top: 16px;" aria-label="Social links">
+            <a class="social-link" href="#" aria-label="Twitter (placeholder)" title="Coming soon">𝕏</a>
+            <a class="social-link" href="#" aria-label="GitHub (placeholder)" title="Coming soon">GH</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Agile Conqueror Company. All rights reserved.</span>
+        <span>Founded by Hakan Cevik</span>
+      </div>
     </div>
-  </div>
+  </footer>
+
+  <script src="js/apps.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
