@@ -368,9 +368,14 @@
     });
   }
 
+  function showAllReveals() {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+  }
+
   function initReveal() {
-    if (prefersReducedMotion) {
-      document.querySelectorAll(".reveal").forEach((el) => el.classList.add("visible"));
+    const items = document.querySelectorAll(".reveal");
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      showAllReveals();
       return;
     }
 
@@ -383,20 +388,33 @@
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
     );
 
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    items.forEach((el) => observer.observe(el));
+
+    // Safety net: never leave content hidden if the observer doesn't fire.
+    setTimeout(showAllReveals, 1500);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    initNav();
-    initStudioBranding();
-    initStarfield();
-    renderOrbit();
-    renderFeaturedStrip();
-    renderApps();
-    initFAQ();
-    initReveal();
-  });
+  function safe(fn) {
+    try { fn(); } catch (err) { console.error("[ACC]", fn.name, err); }
+  }
+
+  function boot() {
+    safe(initNav);
+    safe(initStudioBranding);
+    safe(initStarfield);
+    safe(renderOrbit);
+    safe(renderFeaturedStrip);
+    safe(renderApps);
+    safe(initFAQ);
+    safe(initReveal);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();
