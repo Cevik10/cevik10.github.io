@@ -1,6 +1,5 @@
 /* Agile Conqueror Company — Constellation Craft v3 (Deep Space) */
-
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Orbitron:wght@500;600;700;800;900&display=swap");
+/* Fonts are loaded via <link> in the HTML <head> for reliability. */
 
 :root {
   --bg-deep: #03060f;
@@ -28,8 +27,8 @@
   --utility-silver: #aab8d4;
   --utility-blue: #69b4ff;
 
-  --font-heading: "Orbitron", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-heading: "Orbitron", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius-panel: 22px;
   --radius-btn: 12px;
   --nav-height: 76px;
