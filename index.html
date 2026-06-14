@@ -19,13 +19,12 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="cosmos" aria-hidden="true">
-    <div class="starfield"></div>
-    <div class="nebula nebula-1"></div>
-    <div class="nebula nebula-2"></div>
-    <div class="nebula nebula-3"></div>
-    <div class="shooting-stars"></div>
-  </div>
+  <div class="cosmos" aria-hidden="true"></div>
+  <canvas id="star-canvas" aria-hidden="true"></canvas>
+  <div class="nebula nebula-1" aria-hidden="true"></div>
+  <div class="nebula nebula-2" aria-hidden="true"></div>
+  <div class="nebula nebula-3" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
@@ -61,16 +60,12 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-cover-wrap" aria-hidden="true">
-        <img class="hero-cover-img" data-studio-cover src="assets/images/studio/cover.jpg" alt="" />
-        <div class="hero-cover-vignette"></div>
-        <div class="hero-scanlines"></div>
-      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
 
       <div class="container hero-layout">
         <div class="hero-copy reveal">
           <div class="hero-studio-badge">
-            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="56" height="56" />
+            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="48" height="48" />
             <div>
               <p class="hero-tagline">Agile Conqueror Company</p>
               <p class="hero-motto-inline">Always for the better...</p>
@@ -78,30 +73,47 @@
           </div>
           <h1 id="hero-title" class="hero-title">
             <span class="hero-title-line">Apps for explorers,</span>
-            <span class="hero-title-line accent">learners & dreamers.</span>
+            <span class="hero-title-line accent">learners &amp; dreamers.</span>
           </h1>
           <p class="hero-subtitle">A personal indie studio crafting mobile worlds — from command decks and galactic companions to cat puzzles, geography blocks, and kids' learning adventures.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#apps">Explore Our Apps</a>
             <a class="btn btn-secondary" href="#support">Get Support</a>
           </div>
-          <div class="featured-strip" id="featured-strip" aria-label="Featured apps"></div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-num" id="stat-apps">9</span>
+              <span class="hero-stat-label">Apps Built</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">2</span>
+              <span class="hero-stat-label">Platforms</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">6</span>
+              <span class="hero-stat-label">Categories</span>
+            </div>
+          </div>
         </div>
 
-        <div class="hero-orbit-stage reveal" aria-hidden="true">
+        <div class="hero-orbit-stage reveal" data-delay="1" aria-hidden="true">
           <div class="orbit-rings">
             <div class="orbit-ring-outer"></div>
             <div class="orbit-ring-mid"></div>
             <div class="orbit-ring-inner"></div>
           </div>
+          <div class="orbit-planet"></div>
           <div class="orbit-core">
-            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="88" height="88" />
+            <img data-studio-logo src="assets/images/studio/logo.png" alt="" width="100" height="100" />
             <div class="orbit-core-pulse"></div>
           </div>
           <div class="orbit-ring" id="orbit-ring"></div>
-          <div class="hud-readout hud-readout--tl">SECTOR 07 / ACC</div>
-          <div class="hud-readout hud-readout--br">CONSTELLATION CRAFT</div>
         </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-cue-line"></span>
       </div>
     </section>
 
@@ -109,10 +121,8 @@
       <div class="container reveal">
         <p class="section-label">Transmission</p>
         <h2 id="story-title" class="section-title">One developer. Many worlds.</h2>
-        <div class="panel story-panel story-panel--wide">
-          <div class="story-visual">
-            <img data-studio-cover src="assets/images/studio/cover.jpg" alt="Agile Conqueror Company studio artwork" loading="lazy" />
-          </div>
+        <div class="panel story-panel">
+          <img class="story-orb" data-studio-logo src="assets/images/studio/logo.png" alt="Agile Conqueror Company" loading="lazy" />
           <div class="story-text">
             <p>Agile Conqueror Company is an indie mobile app studio built around curiosity, craft, and the joy of creating small digital worlds. From sci-fi companion tools and interactive RPG ideas to cat quizzes, geography puzzles, kids' learning, and everyday utilities — every app is made with the same goal: to become a little better with every release.</p>
             <p>This isn't a corporate fleet. It's a personal workshop at the edge of the final frontier — serious enough for command-deck companions, warm enough for cats and kids, and handcrafted with care.</p>
@@ -125,7 +135,7 @@
       <div class="container reveal">
         <p class="section-label">Mission Catalog</p>
         <h2 id="apps-title" class="section-title">Constellation of apps</h2>
-        <p class="section-lead">Real apps, real screenshots — filter by category and beam aboard.</p>
+        <p class="section-lead">Every app, with its real icon and screenshots — filter by category and beam aboard.</p>
         <div class="filter-bar" id="filter-bar" role="toolbar" aria-label="Filter apps by category"></div>
         <div class="apps-grid" id="apps-grid"></div>
       </div>

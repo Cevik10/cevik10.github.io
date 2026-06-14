@@ -39,20 +39,125 @@
   function initStudioBranding() {
     if (typeof STUDIO === "undefined") return;
 
-    const logoEls = document.querySelectorAll("[data-studio-logo]");
-    logoEls.forEach((el) => {
+    document.querySelectorAll("[data-studio-logo]").forEach((el) => {
       el.src = STUDIO.logo;
-      el.alt = STUDIO.name + " logo";
-    });
-
-    const coverEls = document.querySelectorAll("[data-studio-cover]");
-    coverEls.forEach((el) => {
-      el.src = STUDIO.cover;
-      el.alt = STUDIO.name + " cover art";
+      if (!el.alt) el.alt = STUDIO.name;
     });
 
     const favicon = document.getElementById("dynamic-favicon");
     if (favicon && STUDIO.logo) favicon.href = STUDIO.logo;
+
+    const statApps = document.getElementById("stat-apps");
+    if (statApps && typeof APPS !== "undefined") statApps.textContent = APPS.length;
+  }
+
+  /* Animated canvas starfield with parallax + twinkle + shooting stars */
+  function initStarfield() {
+    const canvas = document.getElementById("star-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let w, h, dpr, stars, shooting, mouseX = 0, mouseY = 0, raf;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth = window.innerWidth;
+      h = canvas.clientHeight = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildStars();
+    }
+
+    function buildStars() {
+      const count = Math.min(220, Math.floor((w * h) / 7000));
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        const layer = Math.random();
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: layer < 0.7 ? Math.random() * 1.1 + 0.3 : Math.random() * 1.8 + 0.8,
+          depth: layer < 0.7 ? 0.3 : layer < 0.9 ? 0.6 : 1,
+          tw: Math.random() * Math.PI * 2,
+          twSpeed: Math.random() * 0.02 + 0.005,
+          hue: Math.random() < 0.15 ? 200 : Math.random() < 0.3 ? 45 : 0
+        });
+      }
+    }
+
+    function spawnShooting() {
+      if (shooting || Math.random() > 0.012) return;
+      shooting = {
+        x: Math.random() * w * 0.7,
+        y: Math.random() * h * 0.4,
+        len: Math.random() * 120 + 80,
+        speed: Math.random() * 6 + 6,
+        angle: Math.PI / 6 + Math.random() * 0.3,
+        life: 1
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      const px = (mouseX - w / 2) * 0.012;
+      const py = (mouseY - h / 2) * 0.012;
+
+      for (const s of stars) {
+        s.tw += s.twSpeed;
+        const alpha = 0.35 + Math.abs(Math.sin(s.tw)) * 0.65;
+        const x = s.x + px * s.depth * 8;
+        const y = s.y + py * s.depth * 8;
+        let color;
+        if (s.hue === 200) color = `rgba(120,210,255,${alpha})`;
+        else if (s.hue === 45) color = `rgba(255,220,150,${alpha})`;
+        else color = `rgba(255,255,255,${alpha})`;
+        ctx.beginPath();
+        ctx.arc(x, y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        if (s.depth === 1) { ctx.shadowBlur = 6; ctx.shadowColor = color; } else { ctx.shadowBlur = 0; }
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+
+      spawnShooting();
+      if (shooting) {
+        const s = shooting;
+        const dx = Math.cos(s.angle) * s.len;
+        const dy = Math.sin(s.angle) * s.len;
+        const grad = ctx.createLinearGradient(s.x, s.y, s.x - dx, s.y - dy);
+        grad.addColorStop(0, `rgba(255,255,255,${s.life})`);
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x - dx, s.y - dy);
+        ctx.stroke();
+        s.x += Math.cos(s.angle) * s.speed;
+        s.y += Math.sin(s.angle) * s.speed;
+        s.life -= 0.012;
+        if (s.life <= 0 || s.x > w + 200 || s.y > h + 200) shooting = null;
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    if (!prefersReducedMotion) {
+      window.addEventListener("mousemove", (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
+    }
+    resize();
+    if (prefersReducedMotion) {
+      // draw a single static frame
+      for (const s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.fill();
+      }
+    } else {
+      raf = requestAnimationFrame(draw);
+    }
   }
 
   function renderOrbit() {
@@ -61,12 +166,12 @@
 
     const items = HERO_ORBIT_APPS.filter((a) => a.icon);
     const count = items.length;
-    const radius = window.innerWidth < 720 ? 130 : 175;
+    const radiusPct = 41;
 
     items.forEach((app, i) => {
       const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
-      const x = 50 + (Math.cos(angle) * radius) / 3.2;
-      const y = 50 + (Math.sin(angle) * radius) / 3.2;
+      const x = 50 + Math.cos(angle) * radiusPct;
+      const y = 50 + Math.sin(angle) * radiusPct;
 
       const node = document.createElement("a");
       node.className = "orbit-app";
@@ -76,7 +181,7 @@
       node.style.animationDelay = i * -0.7 + "s";
       node.title = app.name;
       node.setAttribute("aria-label", app.name);
-      node.innerHTML = `<img src="${app.icon}" alt="" loading="lazy" /><span class="orbit-glow"></span>`;
+      node.innerHTML = `<img src="${app.icon}" alt="" loading="lazy" />`;
       node.addEventListener("click", (e) => {
         e.preventDefault();
         document.getElementById("apps")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
@@ -128,17 +233,15 @@
       ? '<p class="unofficial-note">Unofficial fan companion — not affiliated with any rights holder.</p>'
       : "";
 
-    const comingSoon = app.comingSoon ? '<span class="coming-soon-badge">Coming Soon</span>' : "";
+    const comingSoon = app.comingSoon ? '<span class="coming-soon-badge">Soon</span>' : "";
 
-    const visual = app.screenshot
-      ? `<div class="app-card-visual">
-          <img class="app-screenshot" src="${app.screenshot}" alt="${app.name} screenshot" loading="lazy" />
-          <div class="app-visual-overlay"></div>
-          <img class="app-icon-img" src="${app.icon}" alt="${app.name} icon" width="72" height="72" loading="lazy" />
+    const shot = app.screenshot
+      ? `<div class="app-shot-wrap">
+          <img class="app-shot" src="${app.screenshot}" alt="${app.name} screenshot" loading="lazy" />
+          <div class="app-shot-fade"></div>
         </div>`
-      : `<div class="app-card-visual app-card-visual--icon-only">
-          <div class="app-visual-fallback"></div>
-          <img class="app-icon-img app-icon-img--large" src="${app.icon}" alt="${app.name} icon" width="96" height="96" loading="lazy" />
+      : `<div class="app-shot-wrap app-shot-wrap--empty">
+          <img class="app-icon-ghost" src="${app.icon}" alt="" loading="lazy" />
         </div>`;
 
     const appStoreBtn = app.comingSoon
@@ -154,12 +257,16 @@
         : "";
 
     return `
-      <article class="panel app-card fade-in" data-category="${app.category}" data-accent="${app.accent}" data-app-id="${app.id}">
-        ${visual}
+      <article class="panel app-card" data-category="${app.category}" data-accent="${app.accent}" data-app-id="${app.id}">
+        <div class="app-card-head">
+          <img class="app-icon-big" src="${app.icon}" alt="${app.name} icon" width="76" height="76" loading="lazy" />
+          <div class="app-head-text">
+            <span class="app-badge">${app.categoryLabel}</span>${comingSoon}
+            <h3 class="app-name">${app.name}</h3>
+          </div>
+        </div>
+        ${shot}
         <div class="app-card-body">
-          <span class="app-badge">${app.categoryLabel}</span>
-          ${comingSoon}
-          <h3 class="app-name">${app.name}</h3>
           <p class="app-hook">${app.hook}</p>
           <p class="app-desc">${app.description}</p>
           <div class="app-actions">
@@ -282,29 +389,14 @@
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
   }
 
-  function initParallax() {
-    if (prefersReducedMotion) return;
-    const cover = document.querySelector(".hero-cover-img");
-    if (!cover) return;
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        const y = window.scrollY * 0.35;
-        cover.style.transform = `translate3d(0, ${y}px, 0) scale(1.08)`;
-      },
-      { passive: true }
-    );
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     initNav();
     initStudioBranding();
+    initStarfield();
     renderOrbit();
     renderFeaturedStrip();
     renderApps();
     initFAQ();
     initReveal();
-    initParallax();
   });
 })();
